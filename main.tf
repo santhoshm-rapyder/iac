@@ -53,7 +53,7 @@ module "iam" {
 }
 
 module "keypair" {
-  source   = "../../modules/keypair"
+  source   = "github.com/santhoshm-rapyder/terraform-aws-keypair-module.git?ref=main"
   key_name = "develop-gp2"
 }
 
