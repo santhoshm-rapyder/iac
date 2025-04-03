@@ -11,7 +11,7 @@ module "vpc" {
 
 
 module "security_group" {
-  source          = "../../modules/security-groups"
+  source          = "github.com/santhoshm-rapyder/terraform-aws-sg-module.git?ref=main"
   environment     = "develop-gp2"
   vpc_id          = module.vpc.vpc_id
   ingress_rules = [
