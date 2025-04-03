@@ -1,5 +1,5 @@
 module "vpc" {
-  source = "../../modules/vpc"
+  source = "github.com/santhoshm-rapyder/terraform-aws-vpc-module.git?ref=main" # Replace "main" with the required branch or tag
 
   environment           = "develop-gp2"
   vpc_cidr            = "10.0.0.0/16"
