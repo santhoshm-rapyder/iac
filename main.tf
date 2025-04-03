@@ -29,7 +29,7 @@ module "security_group" {
 
 # # ✅ SonarQube EC2 Instance
 module "sonarqube_instance" {
-  source            = "../../modules/ec2"
+  source            = "github.com/santhoshm-rapyder/terraform-aws-ec2-module.git?ref=main"
   ami_id            = "ami-0c94855ba95c71c99" # Amazon Linux 2 AMI
   instance_type     = "t2.medium"
   key_name          = "ec2-sonar-instance"
