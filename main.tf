@@ -59,7 +59,7 @@ module "keypair" {
 
 
 module "ecs" {
-  source               = "../../modules/ecs"
+  source               = "github.com/santhoshm-rapyder/terraform-aws-ecs-module.git?ref=main"
   cluster_name         = "develop-gp2-ecs-cluster"
   ami_id               = "ami-0c55b159cbfafe1f0"  # Update with a valid ECS-optimized AMI
   instance_type        = "t3.medium"
