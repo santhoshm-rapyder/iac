@@ -1,5 +1,5 @@
 module "vpc" {
-  source = "github.com/santhoshm-rapyder/terraform-aws-vpc-module.git?ref=main" # Replace "main" with the required branch or tag
+  source = "git::https://github.com/santhoshm-rapyder/terraform-aws-vpc-module.git?ref=main"        # Replace "main" with the required branch or tag
 
   environment           = "develop-gp2"
   vpc_cidr            = "10.0.0.0/16"
@@ -11,7 +11,7 @@ module "vpc" {
 
 
 module "security_group" {
-  source          = "github.com/santhoshm-rapyder/terraform-aws-sg-module.git?ref=main"
+  source          = "git::https://github.com/santhoshm-rapyder/terraform-aws-sg-module.git?ref=main"
   environment     = "develop-gp2"
   vpc_id          = module.vpc.vpc_id
   ingress_rules = [
@@ -29,7 +29,7 @@ module "security_group" {
 
 # # ✅ SonarQube EC2 Instance
 module "sonarqube_instance" {
-  source            = "github.com/santhoshm-rapyder/terraform-aws-ec2-module.git?ref=main"
+  source            = "git::https://github.com/santhoshm-rapyder/terraform-aws-ec2-module.git?ref=main"
   ami_id            = "ami-0c94855ba95c71c99" # Amazon Linux 2 AMI
   instance_type     = "t2.medium"
   key_name          = "ec2-sonar-instance"
@@ -53,13 +53,13 @@ module "iam" {
 }
 
 module "keypair" {
-  source   = "github.com/santhoshm-rapyder/terraform-aws-keypair-module.git?ref=main"
+  source   = "git::https://github.com/santhoshm-rapyder/terraform-aws-keypair-module.git?ref=main"
   key_name = "develop-gp2"
 }
 
 
 module "ecs" {
-  source               = "github.com/santhoshm-rapyder/terraform-aws-ecs-module.git?ref=main"
+  source               = "git::https://github.com/santhoshm-rapyder/terraform-aws-ecs-module.git?ref=main"
   cluster_name         = "develop-gp2-ecs-cluster"
   ami_id               = "ami-0c55b159cbfafe1f0"  # Update with a valid ECS-optimized AMI
   instance_type        = "t3.medium"
@@ -111,7 +111,7 @@ module "cloud_map" {
 }
 
 module "ecs_task_configs" {
-  source              = "../../modules/ecs-task"
+  source              = "git::https://github.com/santhoshm-rapyder/terraform-aws-ecs-task-module.git?ref=main"
   family              = "develop-gp2-configs-task"
   container_name      = "develop-gp2-configs-container"
   ecr_repository_url  = module.ecr.repository_urls["configs"]
@@ -129,7 +129,7 @@ module "ecs_task_configs" {
 }
 
 module "ecs_task_documents" {
-  source              = "../../modules/ecs-task"
+  source              = "git::https://github.com/santhoshm-rapyder/terraform-aws-ecs-task-module.git?ref=main"
   family              = "develop-gp2-documents-task"
   container_name      = "develop-gp2-documents-container"
   ecr_repository_url  = module.ecr.repository_urls["documents"]
@@ -147,7 +147,7 @@ module "ecs_task_documents" {
 }
 
 module "ecs_task_gateway" {
-  source              = "../../modules/ecs-task"
+  source              = "git::https://github.com/santhoshm-rapyder/terraform-aws-ecs-task-module.git?ref=main"
   family              = "develop-gp2-gateway-task"
   container_name      = "develop-gp2-gateway-container"
   ecr_repository_url  = module.ecr.repository_urls["gateway"]
@@ -165,7 +165,7 @@ module "ecs_task_gateway" {
 }
 
 module "ecs_task_identity" {
-  source              = "../../modules/ecs-task"
+  source              = "git::https://github.com/santhoshm-rapyder/terraform-aws-ecs-task-module.git?ref=main"
   family              = "develop-gp2-identity-task"
   container_name      = "develop-gp2-identity-container"
   ecr_repository_url  = module.ecr.repository_urls["identity"]
@@ -183,7 +183,7 @@ module "ecs_task_identity" {
 }
 
 module "ecs_task_payment" {
-  source              = "../../modules/ecs-task"
+  source              = "git::https://github.com/santhoshm-rapyder/terraform-aws-ecs-task-module.git?ref=main"
   family              = "develop-gp2-payment-task"
   container_name      = "develop-gp2-payment-container"
   ecr_repository_url  = module.ecr.repository_urls["payment"]
@@ -201,7 +201,7 @@ module "ecs_task_payment" {
 }
 
 module "ecs_task_workspace" {
-  source              = "../../modules/ecs-task"
+  source              = "git::https://github.com/santhoshm-rapyder/terraform-aws-ecs-task-module.git?ref=main"
   family              = "develop-gp2-workspace-task"
   container_name      = "develop-gp2-workspace-container"
   ecr_repository_url  = module.ecr.repository_urls["workspace"]
@@ -219,7 +219,7 @@ module "ecs_task_workspace" {
 }
 
 module "ecs_task_tenant" {
-  source              = "../../modules/ecs-task"
+  source              = "git::https://github.com/santhoshm-rapyder/terraform-aws-ecs-task-module.git?ref=main"
   family              = "develop-gp2-tenant-task"
   container_name      = "develop-gp2-tenant-container"
   ecr_repository_url  = module.ecr.repository_urls["tenant"]
@@ -238,7 +238,7 @@ module "ecs_task_tenant" {
 }
 
 module "ecs_task_webhook" {
-  source              = "../../modules/ecs-task"
+  source              = "git::https://github.com/santhoshm-rapyder/terraform-aws-ecs-task-module.git?ref=main"
   family              = "develop-gp2-webhook-task"
   container_name      = "develop-gp2-webhook-container"
   ecr_repository_url  = module.ecr.repository_urls["webhook"]
@@ -257,7 +257,7 @@ module "ecs_task_webhook" {
 }
 
 module "ecs_task_marketing" {
-  source              = "../../modules/ecs-task"
+  source              = "git::https://github.com/santhoshm-rapyder/terraform-aws-ecs-task-module.git?ref=main"
   family              = "develop-gp2-marketing-task"
   container_name      = "develop-gp2-marketing-container"
   ecr_repository_url  = module.ecr.repository_urls["marketing"]
@@ -276,7 +276,7 @@ module "ecs_task_marketing" {
 }
 
 module "ecs_task_permitio" {
-  source              = "../../modules/ecs-task"
+  source              = "git::https://github.com/santhoshm-rapyder/terraform-aws-ecs-task-module.git?ref=main"
   family              = "develop-gp2-permitio-task"
   container_name      = "develop-gp2-marketing-container"
   ecr_repository_url  = module.ecr.repository_urls["permitio"]
@@ -295,7 +295,7 @@ module "ecs_task_permitio" {
 }
 
 module "ecs_service_configs" {
-  source                 = "../../modules/ecs-service"
+  source                 = "git::https://github.com/santhoshm-rapyder/terraform-aws-ecs-service-module.git?ref=main"
   environment            = "develop-gp2-configs"
   cluster_id             = module.ecs.ecs_cluster_id
   task_definition_arn    = module.ecs_task_configs.ecs_task_definition_arn
@@ -315,7 +315,7 @@ module "ecs_service_configs" {
 }
 
 module "ecs_service_documents" {
-  source                 = "../../modules/ecs-service"
+  source                 = "git::https://github.com/santhoshm-rapyder/terraform-aws-ecs-service-module.git?ref=main"
   environment            = "develop-gp2-documents"
   cluster_id             = module.ecs.ecs_cluster_id
   task_definition_arn    = module.ecs_task_documents.ecs_task_definition_arn
@@ -337,7 +337,7 @@ module "ecs_service_documents" {
 }
 
 module "ecs_service_gateway" {
-  source                 = "../../modules/ecs-service"
+  source                 = "git::https://github.com/santhoshm-rapyder/terraform-aws-ecs-service-module.git?ref=main"
   environment            = "develop-gp2-gateway"
   cluster_id             = module.ecs.ecs_cluster_id
   task_definition_arn    = module.ecs_task_gateway.ecs_task_definition_arn
@@ -358,7 +358,7 @@ module "ecs_service_gateway" {
 }
 
 module "ecs_service_identity" {
-  source                 = "../../modules/ecs-service"
+  source                 = "git::https://github.com/santhoshm-rapyder/terraform-aws-ecs-service-module.git?ref=main"
   environment            = "develop-gp2-identity"
   cluster_id             = module.ecs.ecs_cluster_id
   task_definition_arn    = module.ecs_task_identity.ecs_task_definition_arn
@@ -379,7 +379,7 @@ module "ecs_service_identity" {
 }
 
 module "ecs_service_payment" {
-  source                 = "../../modules/ecs-service"
+  source                 = "git::https://github.com/santhoshm-rapyder/terraform-aws-ecs-service-module.git?ref=main"
   environment            = "develop-gp2-payment"
   cluster_id             = module.ecs.ecs_cluster_id
   task_definition_arn    = module.ecs_task_payment.ecs_task_definition_arn
@@ -400,7 +400,7 @@ module "ecs_service_payment" {
 }
 
 module "ecs_service_workspace" {
-  source                 = "../../modules/ecs-service"
+  source                 = "git::https://github.com/santhoshm-rapyder/terraform-aws-ecs-service-module.git?ref=main"
   environment            = "develop-gp2-workspace"
   cluster_id             = module.ecs.ecs_cluster_id
   task_definition_arn    = module.ecs_task_workspace.ecs_task_definition_arn
@@ -421,7 +421,7 @@ module "ecs_service_workspace" {
 }
 
 module "ecs_service_tenant" {
-  source                 = "../../modules/ecs-service"
+  source                 = "git::https://github.com/santhoshm-rapyder/terraform-aws-ecs-service-module.git?ref=main"
   environment            = "develop-gp2-tenant"
   cluster_id             = module.ecs.ecs_cluster_id
   task_definition_arn    = module.ecs_task_tenant.ecs_task_definition_arn
@@ -442,7 +442,7 @@ module "ecs_service_tenant" {
 }
 
 module "ecs_service_webhook" {
-  source                 = "../../modules/ecs-service"
+  source                 = "git::https://github.com/santhoshm-rapyder/terraform-aws-ecs-service-module.git?ref=main"
   environment            = "develop-gp2-webhook"
   cluster_id             = module.ecs.ecs_cluster_id
   task_definition_arn    = module.ecs_task_webhook.ecs_task_definition_arn
@@ -463,7 +463,7 @@ module "ecs_service_webhook" {
 }
 
 module "ecs_service_marketing" {
-  source                 = "../../modules/ecs-service"
+  source                 = "git::https://github.com/santhoshm-rapyder/terraform-aws-ecs-service-module.git?ref=main"
   environment            = "develop-gp2-marketing"
   cluster_id             = module.ecs.ecs_cluster_id
   task_definition_arn    = module.ecs_task_marketing.ecs_task_definition_arn
@@ -485,7 +485,7 @@ module "ecs_service_marketing" {
 }
 
 module "ecs_service_permitio" {
-  source                 = "../../modules/ecs-service"
+  source                 = "git::https://github.com/santhoshm-rapyder/terraform-aws-ecs-service-module.git?ref=main"
   environment            = "develop-gp2-permitio"
   cluster_id             = module.ecs.ecs_cluster_id
   task_definition_arn    = module.ecs_task_marketing.ecs_task_definition_arn
